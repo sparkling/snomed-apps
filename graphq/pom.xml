@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.ihtsdo.snomed</groupId>
+  <artifactId>graph3</artifactId>
+  <version>0.5</version>
+  <packaging>war</packaging>
+
+  <build>
+
+
+    <plugins>
+
+      <!-- WAR -->
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <webResources>
+            <resource>
+              <directory>yo/dist</directory>
+            </resource>
+          </webResources>
+        </configuration>
+      </plugin>
+
+      <!-- Generate Sources -->
+      <plugin>
+         <groupId>org.codehaus.mojo</groupId>
+         <artifactId>exec-maven-plugin</artifactId>
+         <executions>
+           <execution>
+           <phase>generate-sources</phase>
+           <goals>
+            <goal>exec</goal>
+           </goals>
+           </execution>
+         </executions>
+         <configuration>
+           <executable>bower</executable>
+           <arguments>
+            <argument>install</argument>
+           </arguments>
+           <workingDirectory>${basedir}/src/main/webapp</workingDirectory>
+         </configuration>
+       </plugin>
+
+
+
+      <!-- JETTY -->
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.0.4.v20130625</version>
+        <configuration>
+          <stopKey>foo</stopKey>
+          <stopPort>8000</stopPort>
+          <reload>manual</reload>          
+          <webAppXml>src/main/resources/jetty.xml</webAppXml>
+          <webAppConfig>
+              <contextPath>/${project.name}</contextPath>
+              <baseResource implementation="org.eclipse.jetty.util.resource.ResourceCollection">
+                  <resourcesAsCSV>src/main/webapp,yo/dist</resourcesAsCSV>
+              </baseResource>
+          </webAppConfig>          
+        </configuration>
+        <dependencies>
+          <dependency>
+              <groupId>org.eclipse.jetty</groupId>
+              <artifactId>jetty-servlets</artifactId>
+              <version>9.0.4.v20130625</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      
+      
+      <!-- Maven Compiler -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.5.1</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+
+
+      <!-- Maven Clean -->
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>yo/dist</directory>
+            </fileset>
+            <fileset>
+              <directory>yo/.tmp</directory>
+            </fileset>
+            <fileset>
+              <directory>yo/app/components</directory>
+            </fileset>
+            <fileset>
+              <directory>yo/node_modules</directory>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>      
+
+      <!-- yeoman maven plugin -->
+      <plugin>
+        <groupId>com.github.trecloux</groupId>
+        <artifactId>yeoman-maven-plugin</artifactId>
+        <version>0.1</version>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>build</goal>
+                </goals>
+            </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <dependencies>
+   
+  </dependencies>
+  <repositories>
+    <repository>
+      <id>central</id>
+      <name>Maven Central</name>
+      <url>http://repo1.maven.org/maven2</url>
+    </repository>  
+    <repository>
+      <id>maven2-repository.java.net</id>
+      <name>Java.net Repository for Maven</name>
+      <url>http://download.java.net/maven/2/</url>
+    </repository>
+  </repositories>
+</project>
