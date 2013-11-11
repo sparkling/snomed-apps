@@ -22,13 +22,18 @@ exports.config =
         exports: 'Ember'
         depends:
           handlebars: 'Handlebars'
-          jquery: '$'
+          jquery: '$',
+      bootstrap: 
+        path: 'javascripts/vendor/bootstrap/bootstrap'
+        exports: 'Bootstrap'
     aliases:
-      moment: 'javascripts/vendor/momentjs/moment'
-      lodash: 'javascripts/vendor/lodash'
-      marked: 'javascripts/vendor/marked/marked'
+      bootstrap: 'javascripts/vendor/bootstrap/bootstrap'
+      moment:    'javascripts/vendor/momentjs/moment'
+      lodash:    'javascripts/vendor/lodash'
+      marked:    'javascripts/vendor/marked/marked'
     noParse:
       [
+        'javascripts/vendor/bootstrap/bootstrap'
         'javascripts/vendor/jquery/jquery'
         'javascripts/vendor/ember/handlebars'
         'javascripts/vendor/ember/ember'

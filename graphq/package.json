@@ -1,13 +1,12 @@
 {
-  "name": "mimosa-ember-commonjs",
-  "version": "0.0.1",
-  "author": "Your Name Here",
-  "description": "Boilerplate application for using Mimosa and Ember with mimosa-browserify.",
+  "name": "structured-query-for-snomed",
+  "version": "0.5.0",
+  "author": "Henrik Pettersen",
+  "description": "Structured Query for Snomed",
   "dependencies": {
-    "express": "3.3.4",
-    "coffee-script": "1.6.3",
+    "express": "3.4.4",
     "consolidate": "0.9.1",
-    "jade": "0.34.1",
-    "handlebars": "1.0.12"
+    "jade": "0.35.0",
+    "handlebars": "1.0.0"
   }
 }
