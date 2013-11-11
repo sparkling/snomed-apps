@@ -1,0 +1,13 @@
+{
+  "name": "mimosa-ember-commonjs",
+  "version": "0.0.1",
+  "author": "Your Name Here",
+  "description": "Boilerplate application for using Mimosa and Ember with mimosa-browserify.",
+  "dependencies": {
+    "express": "3.3.4",
+    "coffee-script": "1.6.3",
+    "consolidate": "0.9.1",
+    "jade": "0.34.1",
+    "handlebars": "1.0.12"
+  }
+}

@@ -14,7 +14,6 @@
 /tmp
 
 ## Ignore all generated files
-/.mimosa
 /coverage
 /rdoc
 /wiki
@@ -28,7 +27,6 @@ what
 # Output folder
 /public
 /dist
-/.mimosa/require/tracking.json
 
 # Numerous always-ignore extensions
 *~

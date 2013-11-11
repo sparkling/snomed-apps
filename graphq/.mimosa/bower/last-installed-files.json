@@ -1,0 +1,5 @@
+[
+  "assets/javascripts/vendor/jquery/jquery.js",
+  "assets/javascripts/vendor/marked/marked.js",
+  "assets/javascripts/vendor/momentjs/moment.js"
+]
