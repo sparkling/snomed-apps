@@ -1,0 +1,9 @@
+{
+  "name": "testStructuredQueryForSnomedApp",
+  "version": "0.5.0",
+  "dependencies": {
+    "jquery": "1.9.1",
+    "momentjs": "2.4.0",
+    "marked": "0.2.10"
+  }
+}
