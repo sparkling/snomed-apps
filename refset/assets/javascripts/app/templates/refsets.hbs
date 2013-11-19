@@ -1,0 +1,23 @@
+<section id="listing">
+
+  <table id="forums" class="table table-striped">
+    <thead>
+      <th>Title</th>
+      <th>Created</th>
+      <th></th>
+    <thead>
+    <tbody>
+
+      {{#each refset in controller}}
+      <tr>
+        <td>{{#link-to 'refset' refset}}{{refset.title}}{{/link-to}}</td>
+        <td>{{date refset.created}}</td>
+        <td><button type="button" class="close">&times;</button></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  {{#link-to 'create'}}<button class="btn btn-sm btn-default">Create Refset</button>{{/link-to}}
+
+</section>

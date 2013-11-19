@@ -1,0 +1,27 @@
+<ol class="breadcrumb">
+  <li>{{#link-to 'refsets'}}Refsets{{/link-to}}</li>
+  <li class="active">{{title}}</li>
+</ol>
+
+<section class="inputs">
+  <form class="form-group" {{action 'save' on="submit"}}>
+    <div {{bind-attr class=":form-group errors.name:has-error"}}>
+      <label>Title</label>
+      {{input type="text" name="title" class="form-control" value=title placeholder="Enter Title"}}
+       {{#if errors.title }}
+        <span class="help-block">{{format-error errors.title}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.description:has-error"}}>
+      <label>Description</label>
+      {{input type="text" name="description" class="form-control" value=description placeholder="Enter Description"}}
+      {{#if errors.description }}
+        <span class="help-block">{{format-error errors.description}}</span>
+      {{/if}}
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-default">Create Refset</button>
+      {{#link-to 'refsets'}}<button class="btn btn-default">Cancel</button>{{/link-to}}
+    </div>    
+  </form>
+</section>

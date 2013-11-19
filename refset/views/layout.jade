@@ -1,0 +1,15 @@
+doctype 5
+html
+  head
+    title Mimosa
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css' + cachebust)
+    link(rel='stylesheet', href='/stylesheets/style.css' + cachebust)
+    script(src='/javascripts/bundle.js')
+    script(src='//use.typekit.net/yny4pvk.js')
+
+    if reload
+      script(src='/socket.io/socket.io.js')
+      script(src='/javascripts/reload-client.js')
+
+  body
+    block content
