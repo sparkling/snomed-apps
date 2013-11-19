@@ -13,14 +13,15 @@ Refsets = Ember.Object.extend
 
   createRefset: (refset) ->
     console.log 'in create refset'
+    console.log 'posting: ' + refset
     Ember.Deferred.promise (p) =>
       p.resolve($.ajax(        
         headers:
           Accept : "application/json; charset=utf-8",         
           "Content-Type": "application/json; charset=utf-8"   
-        url: "/api/refsetscreate"
-        type: "PUT"
-        data: JSON.stringify(refset)
+        url: "http://localhost:8080/refsets/api/refsets"
+        type: "POST"
+        data: refset
         dataType: "json"
       ).then (response) =>
         console.log 'Response to update was [' + JSON.stringify response + ']'

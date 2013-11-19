@@ -6,16 +6,13 @@ Refset = Ember.Object.extend
     Ember.Deferred.promise (p) =>
       refset = @get 'refset'
       return p.resolve(refset) if refset?
-      p.resolve $.getJSON('/api/refsets/' + publicId).then (res) =>
+      p.resolve $.getJSON('http://localhost:8080/refsets/api/refsets/' + publicId).then (res) =>
         refset = Ember.Object.create res
         console.log "res: " + res
         @set 'refset', refset
         refset
 
-        
-
 module.exports = Refset.create
-
 
 
 ###
