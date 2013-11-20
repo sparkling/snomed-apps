@@ -2,26 +2,29 @@
   <li>{{#link-to 'refsets'}}Refsets{{/link-to}}</li>
   <li class="active">{{title}}</li>
 </ol>
-
-Error: [{{error.wrapper.status}}]
-Errors: [{{error.fieldErrors}}]
-
 <section class="inputs">
   <form class="form-group" {{action 'save' on="submit"}}>
-    <div {{bind-attr class=":form-group errors.fieldErrors.title:has-error"}}>
+    <div {{bind-attr class=":form-group error.fieldErrors.title:has-error"}}>
       <label>Title</label>
       {{input type="text" name="title" class="form-control" value=title placeholder="Enter Title"}}
-       {{#if error.fieldErrors.title }}
-        <span class="help-block">Format: [{{format-error error.fieldErrors.title}}]</span>
-      {{/if}}
+       {{#each x in error.fieldErrors.title }}
+        <span class="help-block">{{x}}</span>
+      {{/each}}
     </div>
     <div {{bind-attr class=":form-group error.fieldErrors.description:has-error"}}>
       <label>Description</label>
       {{input type="text" name="description" class="form-control" value=description placeholder="Enter Description"}}
       {{#if error.fieldErrors.description }}
-        <span class="help-block">Format: [{{format-error error.fieldErrors.description}}]</span>
+        <span class="help-block">{{error.fieldErrors.description.message}}</span>
       {{/if}}
     </div>
+    <div {{bind-attr class=":form-group error.fieldErrors.publicId:has-error"}}>
+      <label>Public ID</label>
+      {{input type="text" name="publicId" class="form-control" value=description placeholder="Enter Public ID"}}
+      {{#each error.fieldErrors.publicId }}
+        <span class="help-block">{{error.fieldErrors.publicId.message}}</span>
+      {{/each}}
+    </div>    
     <div class="form-group">
       <button type="submit" class="btn btn-default">Create Refset</button>
       {{#link-to 'refsets'}}<button class="btn btn-default">Cancel</button>{{/link-to}}
