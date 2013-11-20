@@ -5,9 +5,10 @@ Refset = require '../models/refset'
 #module.exports = RefsetCreateAndEditRoute.extend
 module.exports = Ember.Route.extend
   model: ->
-    console.log 'creating model'
-    Ember.Object.extend(
-      title: ''
-      description: ''
-    ).create
+      title: 'title'
+      description: 'decs'
 
+###
+  setupController: (controller, model) ->
+    controller.set 'model', model
+###

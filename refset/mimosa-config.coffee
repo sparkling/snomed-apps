@@ -29,6 +29,9 @@ exports.config =
         exports: 'DS'
         depends:
           jquery: '$'
+      emberconsoleutil:
+        path: 'javascripts/vendor/ember/ember-console-utils'
+        exports: 'console'
       bootstrap: 
         path: 'javascripts/vendor/bootstrap/bootstrap'
         exports: 'Bootstrap'

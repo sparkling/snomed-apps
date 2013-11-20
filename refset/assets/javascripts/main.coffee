@@ -31,6 +31,38 @@ App = Ember.Application.create
 
 App.deferReadiness
 
+
+App.toEmberObject = (plainObject) ->
+  
+  # Return undefined or null
+  return plainObject  unless plainObject
+  
+  # Build plain JS object with Ember Objects/Arrays/primitives
+  data = {}
+  for key of plainObject
+    value = plainObject[key]
+    type = Ember.typeOf(value)
+    if type is "array"
+      emberArray = Ember.A()
+      
+      #{
+      #  replace: function (idx, amt, objects){
+      #    console.log('IN REPLACE!!!')
+      #    this.enumerableContentDidChange()
+      #  }
+      #});
+      i = 0
+
+      while i < value.length
+        emberArray.pushObject MyApp.toEmberObject(value[i])
+        ++i
+      data[key] = emberArray
+    else if type is "object"
+      data[key] = MyApp.toEmberObject(value)
+    else data[key] = value  if type is "string" or type is "number" or type is "boolean"
+  result = Ember.Object.create(data)
+  result
+
 # If you have many routes, you could move this to it's own module.
 App.Router.reopen
   location: 'history'

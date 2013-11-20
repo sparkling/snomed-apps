@@ -4,16 +4,18 @@ engines =        require 'consolidate'
 routes  =        require './routes'
 
 exports.startServer = (config, callback) ->
-
   port = process.env.PORT or config.server.port
-
   app = express()
   server = app.listen port, ->
     console.log "Express server listening on port %d in %s mode", server.address().port, app.settings.env
 
+  #CORS middleware
+  allowCrossDomain = (req, res, next) ->
+    res.header "Access-Control-Allow-Origin", config.allowedDomains
+    res.header "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE"
+    res.header "Access-Control-Allow-Headers", "Content-Type"
+    next()
 
-    #http://stackoverflow.com/questions/17515981/reverse-proxy-to-couchdb-hangs-on-post-and-put-in-node-js
-    #middleware itself, preceding any parsers
 
   app.configure ->
     app.set 'port', port
@@ -21,20 +23,12 @@ exports.startServer = (config, callback) ->
     app.engine config.server.views.extension, engines[config.server.views.compileWith]
     app.set 'view engine', config.server.views.extension
     app.use express.favicon()
-    app.use (req, res, next) ->
-      proxy_path = req.path.match(/^\/api(.*)$/)
-      if proxy_path
-        req.pipe(request(
-          uri: req.path
-          method: req.method
-        )).pipe res
-      else
-        next()    
+    app.use express.bodyParser()
     app.use express.methodOverride()
     app.use express.compress()
+    app.use allowCrossDomain
     app.use config.server.base, app.router
     app.use express.static(config.watch.compiledDir)
-   
 
   app.configure 'development', ->
     app.use express.errorHandler()
@@ -49,3 +43,6 @@ exports.startServer = (config, callback) ->
 
   callback(server)
 
+
+
+#http://stackoverflow.com/questions/17515981/reverse-proxy-to-couchdb-hangs-on-post-and-put-in-node-js
