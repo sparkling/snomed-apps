@@ -1,7 +1,15 @@
 Ember = require 'ember'
 $     = require 'jquery'
 
+toType = (obj) ->
+  ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+
 toEmberObject = (plainObject) ->
+  #console.log 'toEmber: ' + plainObject
+  console.log '********************************************'
+  console.log 'toEmber: ' + JSON.stringify(plainObject)
+  console.log 'toEmber type: ' + Ember.typeOf(plainObject)
+  console.log '********************************************'
   
   # Return undefined or null
   return plainObject  unless plainObject
@@ -11,6 +19,12 @@ toEmberObject = (plainObject) ->
   for key of plainObject
     value = plainObject[key]
     type = Ember.typeOf(value)
+    console.log '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
+    console.log 'key: '               + JSON.stringify key
+    console.log 'value: '             + JSON.stringify value
+    console.log 'emberType (value): ' + type
+    console.log 'toType (value): '    + toType(value)
+
     if type is "array"
       emberArray = Ember.A()
       
@@ -21,14 +35,15 @@ toEmberObject = (plainObject) ->
       #  }
       #});
       i = 0
-
+      console.log 'value.length: ' + value.length
       while i < value.length
-        if Ember.typeOf(value[i]) == "string"
-          emberArray.pushObject value[i] 
+        if Ember.typeOf(value[i]) == 'object'
+          console.log 'pushing: toEmberObject(' + value[i] + ')'
+          emberArray.pushObject(toEmberObject(value[i]))
         else
-          emberArray.pushObject toEmberObject(value[i])
+          console.log 'pushing: ' + value[i]
+          emberArray.pushObject(value[i])
         ++i
-
       data[key] = emberArray
     else if type is "object"
       data[key] = toEmberObject(value)
@@ -62,12 +77,11 @@ Refsets = Ember.Object.extend
       ), (error) ->
         console.log('fail: ' + JSON.stringify(error))
         parsed = toEmberObject(JSON.parse(error.responseText))
-        console.log 'after toEmber: ' + parsed
         console.log 'after toEmber: ' + JSON.stringify parsed
 
         #parsed = JSON.parse(error.responseText)
         #console.log('parsed: ' + JSON.stringify(parsed))
-        #result.setProperties(parsed)
+        result.setProperties(parsed)
         #console.log 'RESULT: ' + JSON.stringify(result.get('fieldErrors.publicId'))
         #arr = Ember.A()
         #k = 0
